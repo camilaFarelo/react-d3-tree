@@ -345,6 +345,18 @@ class Tree extends React.Component<TreeProps, TreeState> {
     }
   };
 
+  removeChildNode = (nodeId: string, childrenId: string) => {
+    const data = clone(this.state.data);
+    const matches = this.findNodesById(nodeId, data, []);
+
+    if (matches.length > 0) {
+      const targetNodeDatum = matches[0];
+      const newChildren = targetNodeDatum.children.filter(child => child.id === childrenId);
+      targetNodeDatum.children = newChildren;
+      this.setState({ data });
+    }
+  };
+
   /**
    * Handles the user-defined `onNodeClick` function.
    */
